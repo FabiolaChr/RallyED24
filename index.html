@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rally Expresión Digital – Profesora Fabi</title>
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    /* Estilos para el contenedor principal */
+    .container {
+      background-color: #FFF8DC;
+      padding: 20px;
+      margin: auto;
+      max-width: 500px;
+      border-radius: 20px;
+      border: 10px solid #0F5950;
+    }
+    /* Estilos para el título */
+    h1 {
+      color: #F4A020; /* Cambio de color a #F4A020 */
+      font-weight: bold;
+      font-size: 24px; /* Tamaño de la letra del título */
+      margin-bottom: 45px; /* Espacio entre el titulo y los elementos posteriores */
+    }
+    /* Estilos para el texto de instrucción */
+    .instruction {
+      margin-top: 45px;
+      margin-left: 30px; /* Margen a la izquierda del texto */
+      margin-right: 30px; /* Margen a la derecha del texto */
+      font-size: 14px; /* Tamaño de la letra del texto de instrucción */
+    }
+    /* Estilos para el texto adicional debajo de los botones */
+    .additional-text {
+      margin-top: 10px;
+      margin-left: 30px;
+      margin-right: 30px;
+      font-size: 12px; /* Tamaño de la letra del texto adicional */
+    }
+    /* Estilos para los inputs de contraseña */
+    input[type="password"] {
+      width: 40%; /* Ancho de las cajas de contraseña */
+      font-size: 12px; /* Tamaño de la letra de las cajas de contraseña */
+    }
+  </style>
+</head>
+<body>
+  <!-- Contenedor principal -->
+  <div class="container">
+    <!-- Título -->
+    <h1>Rally Expresión Digital – Profesora Fabi</h1>
+    <!-- Inputs y botones para los acertijos -->
+    <div>
+      <input type="password" id="passwordInput1" placeholder="Escribe la respuesta del acertijo 1">
+      <button id="showPasswordButton1" onclick="togglePasswordVisibility('passwordInput1')">👁️</button>
+      <button id="submitButton1" disabled>Acertijo 1</button>
+    </div>
+    <div>
+      <input type="password" id="passwordInput2" placeholder="Escribe la respuesta del acertijo 2">
+      <button id="showPasswordButton2" onclick="togglePasswordVisibility('passwordInput2')">👁️</button>
+      <button id="submitButton2" disabled>Acertijo 2</button>
+    </div>
+    <div>
+      <input type="password" id="passwordInput3" placeholder="Escribe la respuesta del acertijo 3">
+      <button id="showPasswordButton3" onclick="togglePasswordVisibility('passwordInput3')">👁️</button>
+      <button id="submitButton3" disabled>Acertijo 3</button>
+    </div>
+    <div>
+      <input type="password" id="passwordInput4" placeholder="Escribe la respuesta del acertijo 4">
+      <button id="showPasswordButton4" onclick="togglePasswordVisibility('passwordInput4')">👁️</button>
+      <button id="submitButton4" disabled>Acertijo 4</button>
+    </div>
+    <div>
+      <input type="password" id="passwordInput5" placeholder="Escribe la respuesta del acertijo 5">
+      <button id="showPasswordButton5" onclick="togglePasswordVisibility('passwordInput5')">👁️</button>
+      <button id="submitButton5" disabled>Acertijo 5</button>
+    </div>
+    <div>
+      <input type="password" id="passwordInput6" placeholder="Escribe la respuesta del acertijo 6">
+      <button id="showPasswordButton6" onclick="togglePasswordVisibility('passwordInput6')">👁️</button>
+      <button id="submitButton6" disabled>Acertijo 6</button>
+    </div>
+    <!-- Texto de instrucción -->
+    <p class="instruction">Escribe la respuesta del acertijo que te tocó resolver para descubrir la siguiente instrucción que debes seguir.</p>
+    <!-- Texto adicional debajo de los botones -->
+    <p class="additional-text">Cuando escribas la respuesta correcta se activará el botón de tu acertijo. Presiónalo para recibir la instrucción, aparecerá como una ventana emergente.</p>
+  </div>
+
+  <script>
+    const riddles = [
+      { id: 1, passwords: ['silencio', 'el silencio'], successMessage: 'Audio |  dialogo | -- A: (con voz grave) ¿Qué tal tu día?  -- B: (con voz chillona) Bastante bien. ¿Y el tuyo?' },
+      { id: 2, passwords: ['nombre', 'tu nombre', 'mi nombre'], successMessage: 'Audio – folley – papel rompiéndose y hoja de cuaderno pasando.' },
+      { id: 3, passwords: ['reloj', 'un reloj', 'el reloj'], successMessage: 'Audio – Sonido ambiental – existum.' },
+      { id: 4, passwords: ['cerillo', 'un cerillo', 'el cerillo'], successMessage: 'Audio – Sonido ambiental – Teatro al aire libre.' },
+      { id: 5, passwords: ['todos', 'los 12'], successMessage: 'Audio – Folley – Pasos en pasto y pasos en piso.' },
+      { id: 6, passwords: ['el hombre', 'hombre', 'el humano', 'humano', 'el ser humano', 'ser humano', 'una persona', 'persona'], successMessage: 'Audio | dialogo | -- A: ¡No puedo creerlo! --  B: ¿Qué pasó?  -- A: Se me olvidó subir mi tarea y si la hice.' }
+    ];
+
+    // Función para validar la contraseña y habilitar el botón correspondiente
+    function validatePassword(riddle) {
+      const passwordInput = document.getElementById(`passwordInput${riddle.id}`);
+      const submitButton = document.getElementById(`submitButton${riddle.id}`);
+      const enteredPassword = passwordInput.value.toLowerCase().trim(); // Convertir a minúsculas y eliminar espacios en blanco al principio y al final
+
+      // Validar la contraseña ingresada
+      if (riddle.passwords.includes(enteredPassword)) {
+        submitButton.removeAttribute('disabled'); // Habilitar el botón
+      } else {
+        submitButton.setAttribute('disabled', true); // Deshabilitar el botón
+      }
+    }
+
+    // Función para mostrar u ocultar la contraseña
+    function togglePasswordVisibility(inputId) {
+      const passwordInput = document.getElementById(inputId);
+      const showPasswordButton = document.getElementById(`showPasswordButton${inputId.slice(-1)}`);
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        showPasswordButton.textContent = '🔒'; // Cambiar emoji a cerrado
+      } else {
+        passwordInput.type = 'password';
+        showPasswordButton.textContent = '👁️'; // Cambiar emoji a abierto
+      }
+    }
+
+    // Agregar eventos a cada acertijo
+    riddles.forEach(riddle => {
+      const passwordInput = document.getElementById(`passwordInput${riddle.id}`);
+      const submitButton = document.getElementById(`submitButton${riddle.id}`);
+
+      passwordInput.addEventListener('input', () => {
+        validatePassword(riddle);
+      });
+
+      submitButton.addEventListener('click', () => {
+        alert(riddle.successMessage); // Mostrar mensaje de éxito
+      });
+    });
+  </script>
+</body>
+</html>
